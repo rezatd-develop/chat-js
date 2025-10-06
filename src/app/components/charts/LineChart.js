@@ -22,18 +22,10 @@ ChartJS.register(
   Legend
 );
 
-export default function LineChart() {
+export default function LineChart(props) {
   const data = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
-    datasets: [
-      {
-        label: 'Sales',
-        data: [120, 190, 300, 500, 200],
-        borderColor: 'rgba(75,192,192,1)',
-        backgroundColor: 'rgba(75,192,192,0.2)',
-        tension: 0.4,
-      },
-    ],
+    labels: props?.labels,
+    datasets: props?.datasets,
   };
 
   const options = {
@@ -41,7 +33,7 @@ export default function LineChart() {
     maintainAspectRatio: false,
     plugins: {
       legend: { position: 'top' },
-      title: { display: true, text: 'Monthly Sales' },
+      title: { display: true, text: '' },
     },
     scales: {
       y: { beginAtZero: true },
@@ -49,9 +41,10 @@ export default function LineChart() {
   };
 
   return (
+    data?.labels?.length > 0 && 
     <div
       style={{
-        width: '100%',
+        width: '100% !important',
         height: '400px',
         position: 'relative',
       }}

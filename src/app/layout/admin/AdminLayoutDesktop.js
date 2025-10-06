@@ -39,7 +39,7 @@ const AdminLayoutDesktop = (props) => {
                 </div>
             </div>
         </div>
-        <div>{props?.children}</div>
+        <div className="w-100">{props?.children}</div>
     </div>
 };
 

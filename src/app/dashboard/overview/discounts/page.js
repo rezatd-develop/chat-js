@@ -3,11 +3,11 @@
 import LineChart from "@/app/components/charts/LineChart";
 import CuDialog from "@/app/components/dialog/CuDialog";
 import AdminLayout from "@/app/layout/admin/AdminLayout";
-import { DaOverviewTotalSalesServiceApi } from "@/app/services/apis/dashboard/dashboardServices";
+import { DaOverviewDiscountsServiceApi } from "@/app/services/apis/dashboard/dashboardServices";
 import DashboardHeader from "@/app/view/dashboard/bases/DashboardHeader";
 import { useEffect, useState } from "react";
 
-const DaOverviewTotalSales = () => {
+const DaOverviewDiscounts = () => {
     const [daOverviewTotalSales, setDaOverviewTotalSales] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
     const [showErrorDialog, setErrorDialog] = useState(false);
@@ -22,7 +22,7 @@ const DaOverviewTotalSales = () => {
 
             console.log('***params', params);
 
-            const data = await DaOverviewTotalSalesServiceApi(
+            const data = await DaOverviewDiscountsServiceApi(
                 '68e3a17e7cd2d74e821cee9c',
                 params
             );
@@ -67,4 +67,4 @@ const DaOverviewTotalSales = () => {
     </AdminLayout>
 };
 
-export default DaOverviewTotalSales;
+export default DaOverviewDiscounts;
