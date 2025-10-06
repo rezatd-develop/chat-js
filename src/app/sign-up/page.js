@@ -15,6 +15,8 @@ export default function SignUpPage() {
     });
     const [errorMessage, setErrorMessage] = useState('');
     const [showErrorDialog, setShowErrorDialog] = useState(false);
+    const [dialogHeader, setDialogHeader] = useState('');
+
     const router = useRouter();
 
     const handleChange = (e) => {
@@ -32,10 +34,16 @@ export default function SignUpPage() {
 
             if (data?.hasError) {
                 setErrorMessage(data?.message);
+                setDialogHeader('خطا')
                 setShowErrorDialog(true);
             } else {
+                setDialogHeader('تبریک');
+                setErrorMessage('ثبت نام با موفقیت انجام شد');
+                setShowErrorDialog(true);
+                setTimeout(() => router.push('/login'), 2000)
             }
         } catch (err) {
+            setDialogHeader('خطا')
             setErrorMessage(err.message || err);
             setShowErrorDialog(true);
         }
@@ -130,7 +138,7 @@ export default function SignUpPage() {
             </div>
             <CuDialog
                 isOpen={showErrorDialog}
-                dialogHeader='خطا'
+                dialogHeader={dialogHeader}
                 dialogContent={errorMessage}
                 handleClose={() => setShowErrorDialog(false)}
             />

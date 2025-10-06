@@ -9,6 +9,8 @@ export default function SignInPage() {
     const [formData, setFormData] = useState({ username: "", password: "" });
     const [errorMessage, setErrorMessage] = useState('');
     const [showErrorDialog, setShowErrorDialog] = useState(false);
+    const [dialogHeader, setDialogHeader] = useState('');
+
     const router = useRouter();
 
     const handleChange = (e) => {
@@ -29,14 +31,19 @@ export default function SignInPage() {
 
             if (data?.hasError) {
                 setErrorMessage(data?.message);
+                setDialogHeader('خطا')
                 setShowErrorDialog(true);
             } else {
                 localStorage.setItem('token', data.data);
-                router.push('/dashboard/overview/total-sales')
+                setTimeout(() => router.push('/dashboard/overview/total-sales'), 2000)
+                setDialogHeader('تبریک');
+                setErrorMessage('با موفقیت وارد شدید.');
+                setShowErrorDialog(true);
             }
         } catch (err) {
             setErrorMessage(err.message || err);
             setShowErrorDialog(true);
+            setDialogHeader('خطا')
         }
     };
 
@@ -85,7 +92,7 @@ export default function SignInPage() {
                 </form>
             </div>
             <CuDialog isOpen={showErrorDialog}
-                dialogHeader='خطا'
+                dialogHeader={dialogHeader}
                 dialogContent={errorMessage}
                 handleClose={() => setShowErrorDialog(false)}
             />
