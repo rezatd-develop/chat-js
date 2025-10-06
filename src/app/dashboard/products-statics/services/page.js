@@ -16,7 +16,7 @@ const DaProductStaticsServices = () => {
     async function fetchDaOverviewBookingCountService() {
         try {
             const data = await DaProductsStaticsServicesServiceApi(
-                '68e3a17e7cd2d74e821cee9c'
+                '68e3d07923d356db9432b3e1'
             );
 
             if (data?.hasError) {

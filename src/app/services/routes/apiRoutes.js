@@ -3,4 +3,6 @@ export const apiRoutes = {
     DaOverviewBookingCount: '/dashboard/overview/bookingCount/',
     DaOverviewDiscountsCount: '/dashboard/overview/discounts/',
     DaProductsStaticsServices: '/dashboard/productStatics/services/',
+    signIn: '/auth/signin',
+    signUp: '/auth/signup',
 }
