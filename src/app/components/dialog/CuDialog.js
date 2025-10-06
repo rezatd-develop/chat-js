@@ -17,10 +17,14 @@ export default function CuDialog(props) {
             aria-describedby="alert-dialog-description"
             dir='rtl'
         >
-            <DialogTitle id="alert-dialog-title"
-                sx={{ fontFamily: 'yekanBakh-bold' }}>
-                {props?.dialogHeader}
-            </DialogTitle>
+            <div className='d-flex justify-content-between' style={{ minWidth: '50vw' }}>
+                <DialogTitle id="alert-dialog-title"
+                    sx={{ fontFamily: 'yekanBakh-bold' }}>
+                    {props?.dialogHeader}
+                </DialogTitle>
+                <i onClick={()=>handleClose()} className="bi bi-x fs-3 ps-4 pt-3"></i>
+            </div>
+
             <DialogContent>
                 <DialogContentText id="alert-dialog-description"
                     sx={{ fontFamily: 'yekanBakh-bold' }}>

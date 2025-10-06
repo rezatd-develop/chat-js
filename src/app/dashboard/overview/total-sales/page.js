@@ -10,13 +10,13 @@ import { useEffect, useState } from "react";
 const DaOverviewTotalSales = () => {
     const [daOverviewTotalSales, setDaOverviewTotalSales] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
-    const [showErrorDialog, setErrorDialog] = useState(false);
+    const [showErrorDialog, setShowErrorDialog] = useState(false);
     const [startDate, setStartDate] = useState();
     const [endDate, setEndDate] = useState();
 
     async function fetchDaOverviewTotalSalesService(startDate, endDate) {
         try {
-            const params = {range: 'daily'};
+            const params = { range: 'daily' };
             if (startDate?.date) params.start = startDate.date;
             if (endDate?.date) params.end = endDate.date;
 
@@ -27,13 +27,13 @@ const DaOverviewTotalSales = () => {
 
             if (data?.hasError) {
                 setErrorMessage(data?.message || 'مشکلی در فراخوانی اطلاعات وجود دارد');
-                setErrorDialog(true);
+                setShowErrorDialog(true);
             } else {
                 setDaOverviewTotalSales(data?.data);
             }
         } catch (err) {
             setErrorMessage(err.message || err);
-            setErrorDialog(true);
+            setShowErrorDialog(true);
         }
     }
 
@@ -56,10 +56,12 @@ const DaOverviewTotalSales = () => {
             <LineChart labels={daOverviewTotalSales?.labels}
                 datasets={daOverviewTotalSales?.datasets} />
 
+            {console.log('***showErrorDialog', showErrorDialog)}
+
             <CuDialog isOpen={showErrorDialog}
                 dialogHeader='خطا'
                 dialogContent={errorMessage}
-                handleClose={() => setErrorMessage(!errorMessage)}
+                handleClose={() => setShowErrorDialog(false)}
             />
         </div>
     </AdminLayout>
