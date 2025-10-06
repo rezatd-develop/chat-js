@@ -3,11 +3,10 @@
 import DoughnutChart from "@/app/components/charts/DoughnutChart";
 import CuDialog from "@/app/components/dialog/CuDialog";
 import AdminLayout from "@/app/layout/admin/AdminLayout";
-import { DaOverviewBookingCountServiceApi } from "@/app/services/apis/dashboard/dashboardServices";
-import DashboardHeader from "@/app/view/dashboard/bases/DashboardHeader";
+import { DaProductsStaticsServicesServiceApi } from "@/app/services/apis/dashboard/dashboardServices";
 import { useEffect, useState } from "react";
 
-const DaOverviewBookingCount = () => {
+const DaProductStaticsServices = () => {
     const [daOverviewBookingCount, setDaOverviewBookingCount] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
     const [showErrorDialog, setErrorDialog] = useState(false);
@@ -16,7 +15,7 @@ const DaOverviewBookingCount = () => {
 
     async function fetchDaOverviewBookingCountService() {
         try {
-            const data = await DaOverviewBookingCountServiceApi(
+            const data = await DaProductsStaticsServicesServiceApi(
                 '68e3a17e7cd2d74e821cee9c'
             );
 
@@ -51,4 +50,4 @@ const DaOverviewBookingCount = () => {
     </AdminLayout>
 };
 
-export default DaOverviewBookingCount;
+export default DaProductStaticsServices;

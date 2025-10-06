@@ -20,8 +20,6 @@ const DaOverviewTotalSales = () => {
             if (startDate?.date) params.start = startDate.date;
             if (endDate?.date) params.end = endDate.date;
 
-            console.log('***params', params);
-
             const data = await DaOverviewTotalSalesServiceApi(
                 '68e3a17e7cd2d74e821cee9c',
                 params

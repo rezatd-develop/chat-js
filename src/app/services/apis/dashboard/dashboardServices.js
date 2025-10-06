@@ -12,3 +12,7 @@ export const DaOverviewBookingCountServiceApi = (id, params = {}) => {
 export const DaOverviewDiscountsServiceApi = (id, params = {}) => {
     return apiGet(`${apiRoutes.DaOverviewDiscountsCount}${id}/charts`, { params });
 };
+
+export const DaProductsStaticsServicesServiceApi = (id, params = {}) => {
+    return apiGet(`${apiRoutes.DaProductsStaticsServices}${id}/charts`, { params });
+};

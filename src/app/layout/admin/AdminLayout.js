@@ -31,10 +31,9 @@ const AdminLayout = (props) => {
             ]
         },
         {
-            id: 2, name: 'Example 2', href: '/dashboard/overview/total-sales',
+            id: 2, name: 'مقایسه شاخص ها', href: '/dashboard/products-statics/services',
             children: [
-                { id: 2001, name: 'some text', href: '/dashboard/overview/total-sales' },
-                { id: 2002, name: 'some text 2', href: '/dashboard/overview/booking-count' },
+                { id: 2001, name: 'خدمات', href: '/dashboard/products-statics/services' },
             ]
         },
     ];
