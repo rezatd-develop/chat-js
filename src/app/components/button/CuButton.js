@@ -2,6 +2,7 @@ import { Button } from "@mui/material";
 
 const CuButton = (props) => {
     return <Button variant={props?.variant}
+        {...props}
         className={props?.className}
         color={props?.color}
         onClick={props?.onClick}

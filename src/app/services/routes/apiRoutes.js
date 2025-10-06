@@ -5,4 +5,5 @@ export const apiRoutes = {
     DaProductsStaticsServices: '/dashboard/productStatics/services/',
     signIn: '/auth/signin',
     signUp: '/auth/signup',
+    filesUpload: '/files/upload',
 }

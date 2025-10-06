@@ -1,53 +1,72 @@
 'use client'
 
+import { useEffect, useState } from "react";
 import DoughnutChart from "@/app/components/charts/DoughnutChart";
 import CuDialog from "@/app/components/dialog/CuDialog";
 import AdminLayout from "@/app/layout/admin/AdminLayout";
 import { DaProductsStaticsServicesServiceApi } from "@/app/services/apis/dashboard/dashboardServices";
-import { useEffect, useState } from "react";
 
 const DaProductStaticsServices = () => {
     const [daOverviewBookingCount, setDaOverviewBookingCount] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
-    const [showErrorDialog, setErrorDialog] = useState(false);
-    const [startDate, setStartDate] = useState();
-    const [endDate, setEndDate] = useState();
+    const [showErrorDialog, setShowErrorDialog] = useState(false);
+    const [fileId, setFileId] = useState(null);
 
     async function fetchDaOverviewBookingCountService() {
         try {
-            const data = await DaProductsStaticsServicesServiceApi(
-                '68e3d07923d356db9432b3e1'
-            );
+            if (!fileId) {
+                setErrorMessage('شناسه فایل یافت نشد. لطفاً ابتدا فایل را آپلود کنید.');
+                setShowErrorDialog(true);
+                return;
+            }
+
+            const data = await DaProductsStaticsServicesServiceApi(fileId);
 
             if (data?.hasError) {
                 setErrorMessage(data?.message || 'مشکلی در فراخوانی اطلاعات وجود دارد');
-                setErrorDialog(true);
+                setShowErrorDialog(true);
             } else {
                 setDaOverviewBookingCount(data?.data);
             }
         } catch (err) {
             setErrorMessage(err.message || err);
-            setErrorDialog(true);
+            setShowErrorDialog(true);
         }
     }
 
     useEffect(() => {
-        fetchDaOverviewBookingCountService();
+        const storedFileId = localStorage.getItem('fileId');
+        setFileId(storedFileId);
+
+        if (storedFileId) {
+            fetchDaOverviewBookingCountService();
+        } else {
+            setErrorMessage('شناسه فایل در سیستم یافت نشد. لطفاً ابتدا فایل خود را آپلود کنید.');
+            setShowErrorDialog(true);
+        }
     }, []);
 
-    return <AdminLayout >
-        <div className="p-3 w-50 w-lg-50 w-md-50 w-sm-100 d-flex justify-content-center">
+    return (
+        <AdminLayout>
+            <div className="p-3 w-50 w-lg-50 w-md-50 w-sm-100 d-flex justify-content-center">
+                {daOverviewBookingCount ? (
+                    <DoughnutChart
+                        labels={daOverviewBookingCount?.labels}
+                        datasets={daOverviewBookingCount?.datasets}
+                    />
+                ) : (
+                    <p className="text-muted">در حال بارگذاری اطلاعات...</p>
+                )}
 
-            <DoughnutChart labels={daOverviewBookingCount?.labels}
-                datasets={daOverviewBookingCount?.datasets} />
-
-            <CuDialog isOpen={showErrorDialog}
-                dialogHeader='خطا'
-                dialogContent={errorMessage}
-                handleClose={() => setErrorMessage(!errorMessage)}
-            />
-        </div>
-    </AdminLayout>
+                <CuDialog
+                    isOpen={showErrorDialog}
+                    dialogHeader="خطا"
+                    dialogContent={errorMessage}
+                    handleClose={() => setShowErrorDialog(false)}
+                />
+            </div>
+        </AdminLayout>
+    );
 };
 
 export default DaProductStaticsServices;
