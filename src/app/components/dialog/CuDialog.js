@@ -17,7 +17,7 @@ export default function CuDialog(props) {
             aria-describedby="alert-dialog-description"
             dir='rtl'
         >
-            <div className='d-flex justify-content-between' style={{ minWidth: '50vw' }}>
+            <div className='d-flex justify-content-between overflow-hidden' style={{ minWidth: '350px' }}>
                 <DialogTitle id="alert-dialog-title"
                     sx={{ fontFamily: 'yekanBakh-bold' }}>
                     {props?.dialogHeader}

@@ -50,7 +50,7 @@ export default function FileUploadPage() {
                 localStorage.setItem("fileId", result.data);
                 setDialogHeader("موفقیت");
                 setDialogMessage("فایل با موفقیت آپلود شد و شناسه ذخیره شد.");
-                setTimeout(() => router.push('/dashboard/overview/total-sales'), 2000)
+                setTimeout(() => router.push('/dashboard/overview/all-charts'), 2000)
             }
         } catch (err) {
             console.error("Upload error:", err);

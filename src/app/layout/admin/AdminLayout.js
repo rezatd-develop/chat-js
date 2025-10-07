@@ -23,11 +23,12 @@ const AdminLayout = (props) => {
 
     const menuItems = [
         {
-            id: 1, name: 'نگاه اجمالی', href: '/dashboard/overview/total-sales',
+            id: 1, name: 'نگاه اجمالی', href: '/dashboard/overview/all-charts',
             children: [
-                { id: 1001, name: 'مجموع فروش', href: '/dashboard/overview/total-sales' },
-                { id: 1002, name: 'تعداد رزرو ها', href: '/dashboard/overview/booking-count' },
-                { id: 1003, name: 'تخفیف ها', href: '/dashboard/overview/discounts' },
+                { id: 1001, name: 'شاخص ها', href: '/dashboard/overview/all-charts' },
+                { id: 1002, name: 'مجموع فروش', href: '/dashboard/overview/total-sales' },
+                { id: 1003, name: 'تعداد رزرو ها', href: '/dashboard/overview/booking-count' },
+                { id: 1004, name: 'تخفیف ها', href: '/dashboard/overview/discounts' },
             ]
         },
         {

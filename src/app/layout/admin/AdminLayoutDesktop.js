@@ -1,4 +1,5 @@
 'use client';
+
 import CuButton from "@/app/components/button/CuButton";
 import clsx from "clsx";
 import Link from "next/link";
@@ -6,13 +7,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from 'next/navigation';
 
 const AdminLayoutDesktop = (props) => {
-    const user = {
-        firstName: "مهدی",
-        lastName: "رضایی",
-        avatar: "https://github.com/mdo.png",
-    };
     const [persianDateTime, setPersianDateTime] = useState("");
-
     const router = useRouter();
 
     useEffect(() => {
@@ -27,28 +22,34 @@ const AdminLayoutDesktop = (props) => {
 
         updateDateTime();
         const interval = setInterval(updateDateTime, 1000);
-
         return () => clearInterval(interval);
     }, []);
 
+    const exitUserClicked = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('userFullName');
+        router.push('/login')
+    };
+
     return (
-        <div dir="rtl" className="w-100 vh-100 bg-light d-flex">
+        <div dir="rtl" className="d-flex min-vh-100 bg-light">
             <div
-                className="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark h-100"
-                style={{ width: "280px" }}
+                className="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark"
+                style={{ width: "280px", minHeight: "100vh" }}
             >
-                <a href="/" className="text-white text-decoration-none">
+                <a href="/" className="text-white text-decoration-none mb-3">
                     <span className="fs-4 fw-bold">مرکز مدیریت</span>
                 </a>
-                <hr />
-                <ul className="nav nav-pills flex-column mb-auto">
+
+                <hr className="border-secondary" />
+
+                <ul className="nav nav-pills flex-column mb-auto ">
                     {props?.menuItems?.map((item) => (
                         <div key={item?.id}>
                             <li className="nav-item">
                                 <Link
                                     href={item?.href}
-                                    className="nav-link text-white"
-                                    aria-current="page"
+                                    className="nav-link text-white fw-semibold"
                                 >
                                     {item?.name}
                                 </Link>
@@ -58,8 +59,10 @@ const AdminLayoutDesktop = (props) => {
                                     <Link
                                         href={child?.href}
                                         className={clsx(
-                                            props?.selectedMenuItem === child?.id && "active",
-                                            "nav-link text-white"
+                                            "nav-link",
+                                            props?.selectedMenuItem === child?.id
+                                                ? "active bg-primary"
+                                                : "text-white"
                                         )}
                                     >
                                         {child?.name}
@@ -69,66 +72,44 @@ const AdminLayoutDesktop = (props) => {
                         </div>
                     ))}
                 </ul>
-                <hr />
-                <div className="dropdown">
-                    <div className="d-flex align-items-center text-white text-decoration-none">
-                        <img
-                            src={user.avatar}
-                            alt="avatar"
-                            width="32"
-                            height="32"
-                            className="rounded-circle ms-2"
-                        />
-                        <strong className="ms-2">
-                            {user.firstName} {user.lastName}
-                        </strong>
-                    </div>
-                </div>
             </div>
 
-            <div className="w-100">
+            <div className="flex-grow-1 d-flex flex-column">
                 <div className="bg-dark d-flex p-3 justify-content-between align-items-center">
                     <div className="d-flex gap-2">
-                        <div>
-                            <CuButton
-                                variant="contained"
-                                size="large"
-                                onClick={() => router.push('/dashboard/files/upload')}
-                                color="primary"
-                            >
-                                تغییر فایل اکسل
-                            </CuButton>
-                        </div>
-                        <div>
-                            <CuButton
-                                variant="contained"
-                                size="large"
-                                onClick={() => router.push('/dashboard/files/upload')}
-                                color="warning"
-                            >
-                                آپلود فایل
-                            </CuButton>
-                        </div>
+                        <CuButton
+                            variant="contained"
+                            size="large"
+                            onClick={() => router.push('/dashboard/files/upload')}
+                            color="primary"
+                        >
+                            تغییر فایل اکسل
+                        </CuButton>
+                        <CuButton
+                            variant="contained"
+                            size="large"
+                            onClick={() => router.push('/dashboard/files/upload')}
+                            color="warning"
+                        >
+                            آپلود فایل
+                        </CuButton>
                     </div>
 
                     <div className="d-flex align-items-center text-white">
-                        <img
-                            src={user.avatar}
-                            alt="avatar"
-                            width="40"
-                            height="40"
-                            className="rounded-circle ms-2"
-                        />
                         <div className="text-end">
                             <div>
-                                {user.firstName} {user.lastName}، خوش آمدید
+                                {localStorage.getItem('userFullName')}، خوش آمدید
                             </div>
-                            <small className="text-white">{persianDateTime}</small>
+                            <small className="text-white-50">{persianDateTime}</small>
                         </div>
+                        <i class="bi bi-box-arrow-right fs-3 text-white me-3 cursor-pointer"
+                            onClick={exitUserClicked}
+                        ></i>
                     </div>
                 </div>
-
-                {props?.children}
+                <div className="flex-grow-1 overflow-auto p-4">
+                    {props?.children}
+                </div>
             </div>
         </div>
     );

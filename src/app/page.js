@@ -7,7 +7,7 @@ import { useEffect } from "react";
 
 export default function Home() {
   const router = useRouter();
-  router.push('/dashboard/overview/total-sales')
+  router.push('/dashboard/overview/all-charts')
 
   return;
 }

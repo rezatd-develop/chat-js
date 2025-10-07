@@ -34,8 +34,9 @@ export default function SignInPage() {
                 setDialogHeader('خطا')
                 setShowErrorDialog(true);
             } else {
-                localStorage.setItem('token', data.data);
-                setTimeout(() => router.push('/dashboard/overview/total-sales'), 2000)
+                localStorage.setItem('token', data.data?.token);
+                localStorage.setItem('userFullName', data.data?.userFullName);
+                setTimeout(() => router.push('/dashboard/overview/all-charts'), 2000);
                 setDialogHeader('تبریک');
                 setErrorMessage('با موفقیت وارد شدید.');
                 setShowErrorDialog(true);
@@ -43,10 +44,9 @@ export default function SignInPage() {
         } catch (err) {
             setErrorMessage(err.message || err);
             setShowErrorDialog(true);
-            setDialogHeader('خطا')
+            setDialogHeader('خطا');
         }
     };
-
 
     return (
         <div
@@ -85,13 +85,22 @@ export default function SignInPage() {
                             required
                         />
                     </div>
-                    <button type="submit" className="btn btn-primary w-100">
+                    <button type="submit" className="btn btn-primary w-100 mb-2">
                         ورود
                     </button>
 
+                    <button
+                        type="button"
+                        className="btn btn-outline-secondary w-100"
+                        onClick={() => router.push('/sign-up')}
+                    >
+                        ایجاد حساب کاربری
+                    </button>
                 </form>
             </div>
-            <CuDialog isOpen={showErrorDialog}
+
+            <CuDialog
+                isOpen={showErrorDialog}
                 dialogHeader={dialogHeader}
                 dialogContent={errorMessage}
                 handleClose={() => setShowErrorDialog(false)}

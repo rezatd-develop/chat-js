@@ -1,10 +1,19 @@
 'use client'
 import clsx from "clsx";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const AdminLayoutMobile = (props) => {
     const [isOpen, setIsOpen] = useState(false);
+
+  const router = useRouter();
+
+    const exitUserClicked = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('userFullName');
+        router.push('/login')
+    };
 
     return (
         <div dir="rtl" className="w-100 vh-100 bg-light">
@@ -62,12 +71,9 @@ const AdminLayoutMobile = (props) => {
                 </ul>
 
                 <hr />
-                <div className="dropdown">
-                    <div className="d-flex align-items-center text-white text-decoration-none">
-                        <img src="https://github.com/mdo.png" alt="" width="32" height="32" className="rounded-circle ms-2" />
-                        <strong className="ms-2">mdo</strong>
-                    </div>
-                </div>
+                <i class="bi bi-box-arrow-right fs-3 text-white me-3 cursor-pointer"
+                    onClick={exitUserClicked}
+                ></i>
             </div>
             <div className="w-100">{props?.children}</div>
         </div>
