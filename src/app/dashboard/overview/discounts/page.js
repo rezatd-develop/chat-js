@@ -8,14 +8,13 @@ import { DaOverviewDiscountsServiceApi } from "@/app/services/apis/dashboard/das
 import DashboardHeader from "@/app/view/dashboard/bases/DashboardHeader";
 
 const DaOverviewDiscounts = () => {
-    const [daOverviewTotalSales, setDaOverviewTotalSales] = useState(null);
+    const [daOverviewDiscounts, setDaOverviewDiscounts] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
     const [showErrorDialog, setShowErrorDialog] = useState(false);
     const [startDate, setStartDate] = useState();
     const [endDate, setEndDate] = useState();
-    const [fileId, setFileId] = useState(null);
 
-    async function fetchDaOverviewTotalSalesService(startDate, endDate) {
+    async function fetchDaOverviewDiscountsService(fileId, startDate, endDate) {
         try {
             if (!fileId) {
                 setErrorMessage('شناسه فایل یافت نشد. لطفاً ابتدا فایل را آپلود کنید.');
@@ -33,7 +32,7 @@ const DaOverviewDiscounts = () => {
                 setErrorMessage(data?.message || 'مشکلی در فراخوانی اطلاعات وجود دارد');
                 setShowErrorDialog(true);
             } else {
-                setDaOverviewTotalSales(data?.data);
+                setDaOverviewDiscounts(data?.data);
             }
         } catch (err) {
             setErrorMessage(err.message || err);
@@ -43,10 +42,9 @@ const DaOverviewDiscounts = () => {
 
     useEffect(() => {
         const storedFileId = localStorage.getItem('fileId');
-        setFileId(storedFileId);
 
         if (storedFileId) {
-            fetchDaOverviewTotalSalesService(startDate, endDate);
+            fetchDaOverviewDiscountsService(storedFileId, startDate, endDate);
         } else {
             setErrorMessage('شناسه فایل در سیستم یافت نشد. لطفاً ابتدا فایل خود را آپلود کنید.');
             setShowErrorDialog(true);
@@ -56,7 +54,14 @@ const DaOverviewDiscounts = () => {
     const datesChanged = (startDate, endDate) => {
         setStartDate(startDate);
         setEndDate(endDate);
-        fetchDaOverviewTotalSalesService(startDate, endDate);
+
+        const storedFileId = localStorage.getItem('fileId');
+        if (storedFileId) {
+            fetchDaOverviewDiscountsService(storedFileId, startDate, endDate);
+        } else {
+            setErrorMessage('شناسه فایل یافت نشد. لطفاً ابتدا فایل را آپلود کنید.');
+            setShowErrorDialog(true);
+        }
     };
 
     return (
@@ -64,10 +69,10 @@ const DaOverviewDiscounts = () => {
             <div className="p-3 w-100">
                 <DashboardHeader datesChanged={datesChanged} />
 
-                {daOverviewTotalSales ? (
+                {daOverviewDiscounts ? (
                     <LineChart
-                        labels={daOverviewTotalSales?.labels}
-                        datasets={daOverviewTotalSales?.datasets}
+                        labels={daOverviewDiscounts?.labels}
+                        datasets={daOverviewDiscounts?.datasets}
                     />
                 ) : (
                     <p className="text-muted">در حال بارگذاری اطلاعات...</p>

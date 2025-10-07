@@ -7,12 +7,11 @@ import AdminLayout from "@/app/layout/admin/AdminLayout";
 import { DaProductsStaticsServicesServiceApi } from "@/app/services/apis/dashboard/dashboardServices";
 
 const DaProductStaticsServices = () => {
-    const [daOverviewBookingCount, setDaOverviewBookingCount] = useState(null);
+    const [daProductStatics, setDaProductStatics] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
     const [showErrorDialog, setShowErrorDialog] = useState(false);
-    const [fileId, setFileId] = useState(null);
 
-    async function fetchDaOverviewBookingCountService() {
+    async function fetchDaProductStaticsServicesService(fileId) {
         try {
             if (!fileId) {
                 setErrorMessage('شناسه فایل یافت نشد. لطفاً ابتدا فایل را آپلود کنید.');
@@ -26,7 +25,7 @@ const DaProductStaticsServices = () => {
                 setErrorMessage(data?.message || 'مشکلی در فراخوانی اطلاعات وجود دارد');
                 setShowErrorDialog(true);
             } else {
-                setDaOverviewBookingCount(data?.data);
+                setDaProductStatics(data?.data);
             }
         } catch (err) {
             setErrorMessage(err.message || err);
@@ -36,10 +35,9 @@ const DaProductStaticsServices = () => {
 
     useEffect(() => {
         const storedFileId = localStorage.getItem('fileId');
-        setFileId(storedFileId);
 
         if (storedFileId) {
-            fetchDaOverviewBookingCountService();
+            fetchDaProductStaticsServicesService(storedFileId);
         } else {
             setErrorMessage('شناسه فایل در سیستم یافت نشد. لطفاً ابتدا فایل خود را آپلود کنید.');
             setShowErrorDialog(true);
@@ -49,10 +47,10 @@ const DaProductStaticsServices = () => {
     return (
         <AdminLayout>
             <div className="p-3 w-50 w-lg-50 w-md-50 w-sm-100 d-flex justify-content-center">
-                {daOverviewBookingCount ? (
+                {daProductStatics ? (
                     <DoughnutChart
-                        labels={daOverviewBookingCount?.labels}
-                        datasets={daOverviewBookingCount?.datasets}
+                        labels={daProductStatics?.labels}
+                        datasets={daProductStatics?.datasets}
                     />
                 ) : (
                     <p className="text-muted">در حال بارگذاری اطلاعات...</p>
