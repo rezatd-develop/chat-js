@@ -37,6 +37,12 @@ const AdminLayout = (props) => {
                 { id: 2001, name: 'خدمات', href: '/dashboard/products-statics/services' },
             ]
         },
+        {
+            id: 3, name: 'فایل ها', href: '/dashboard/files/upload',
+            children: [
+                { id: 3001, name: 'بارگذاری اکسل', href: '/dashboard/files/upload' },
+            ]
+        },
     ];
 
     const getActiveMenuFromUrl = () => {

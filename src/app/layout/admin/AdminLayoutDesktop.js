@@ -49,13 +49,13 @@ const AdminLayoutDesktop = (props) => {
                             <li className="nav-item">
                                 <Link
                                     href={item?.href}
-                                    className="nav-link text-white fw-semibold"
+                                    className="nav-link text-white fw-semibold "
                                 >
                                     {item?.name}
                                 </Link>
                             </li>
                             {item?.children?.map((child) => (
-                                <li key={child?.id}>
+                                <li key={child?.id} className="me-4">
                                     <Link
                                         href={child?.href}
                                         className={clsx(

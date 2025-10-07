@@ -52,7 +52,7 @@ const AdminLayoutMobile = (props) => {
                     </button>
                     {props?.menuItems?.map(item =>
                         <div key={item?.id}>
-                            <li className="nav-item me-1">
+                            <li className="nav-item">
                                 <Link href={item?.href}
                                     className="nav-link text-white" aria-current="page">
                                     {item?.name}
