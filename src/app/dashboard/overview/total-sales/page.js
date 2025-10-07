@@ -6,6 +6,7 @@ import CuDialog from "@/app/components/dialog/CuDialog";
 import AdminLayout from "@/app/layout/admin/AdminLayout";
 import { DaOverviewTotalSalesServiceApi } from "@/app/services/apis/dashboard/dashboardServices";
 import DashboardHeader from "@/app/view/dashboard/bases/DashboardHeader";
+import { useRouter } from "next/navigation";
 
 const DaOverviewTotalSales = () => {
     const [daOverviewTotalSales, setDaOverviewTotalSales] = useState(null);
@@ -14,6 +15,7 @@ const DaOverviewTotalSales = () => {
     const [startDate, setStartDate] = useState();
     const [endDate, setEndDate] = useState();
     const [fileId, setFileId] = useState(null);
+    const router = useRouter()
 
     async function fetchDaOverviewTotalSalesService(startDate, endDate) {
         try {
@@ -52,6 +54,7 @@ const DaOverviewTotalSales = () => {
         } else if (fileId !== null) {
             setErrorMessage('شناسه فایل در سیستم یافت نشد. لطفاً ابتدا فایل خود را آپلود کنید.');
             setShowErrorDialog(true);
+            setTimeout(() => router.push('/dashboard/files/upload'), 2000);
         }
     }, [fileId]);
 

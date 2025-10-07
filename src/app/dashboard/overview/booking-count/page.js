@@ -6,6 +6,7 @@ import CuDialog from "@/app/components/dialog/CuDialog";
 import AdminLayout from "@/app/layout/admin/AdminLayout";
 import { DaOverviewBookingCountServiceApi } from "@/app/services/apis/dashboard/dashboardServices";
 import DashboardHeader from "@/app/view/dashboard/bases/DashboardHeader";
+import { useRouter } from "next/navigation";
 
 const DaOverviewBookingCount = () => {
     const [daOverviewBookingCount, setDaOverviewBookingCount] = useState(null);
@@ -14,6 +15,7 @@ const DaOverviewBookingCount = () => {
     const [startDate, setStartDate] = useState();
     const [endDate, setEndDate] = useState();
     const [fileId, setFileId] = useState(null);
+    const router = useRouter();
 
     async function fetchDaOverviewBookingCountService(id) {
         try {
@@ -40,6 +42,7 @@ const DaOverviewBookingCount = () => {
         } else {
             setErrorMessage('شناسه فایل در سیستم یافت نشد. لطفاً ابتدا فایل خود را آپلود کنید.');
             setShowErrorDialog(true);
+            setTimeout(() => router.push('/dashboard/files/upload'), 2000);
         }
     }, []);
 

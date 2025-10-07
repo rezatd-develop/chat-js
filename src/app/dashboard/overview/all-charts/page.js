@@ -15,6 +15,7 @@ import {
     DaProductsStaticsServicesServiceApi
 } from "@/app/services/apis/dashboard/dashboardServices";
 import ChartCard from "@/app/components/cards/ChartCard";
+import { useRouter } from "next/navigation";
 
 const DaOverviewAllCharts = () => {
     const [fileId, setFileId] = useState(null);
@@ -27,6 +28,7 @@ const DaOverviewAllCharts = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [showErrorDialog, setShowErrorDialog] = useState(false);
+    const router = useRouter();
 
     async function fetchAllCharts(fileIdParam, startDate, endDate) {
         try {
@@ -86,6 +88,7 @@ const DaOverviewAllCharts = () => {
         } else {
             setErrorMessage('شناسه فایل در سیستم یافت نشد. لطفاً ابتدا فایل خود را آپلود کنید.');
             setShowErrorDialog(true);
+            setTimeout(() => router.push('/dashboard/files/upload'), 2000);
         }
     }, []);
 

@@ -5,11 +5,13 @@ import DoughnutChart from "@/app/components/charts/DoughnutChart";
 import CuDialog from "@/app/components/dialog/CuDialog";
 import AdminLayout from "@/app/layout/admin/AdminLayout";
 import { DaProductsStaticsServicesServiceApi } from "@/app/services/apis/dashboard/dashboardServices";
+import { useRouter } from "next/navigation";
 
 const DaProductStaticsServices = () => {
     const [daProductStatics, setDaProductStatics] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
     const [showErrorDialog, setShowErrorDialog] = useState(false);
+    const router = useRouter()
 
     async function fetchDaProductStaticsServicesService(fileId) {
         try {
@@ -41,6 +43,7 @@ const DaProductStaticsServices = () => {
         } else {
             setErrorMessage('شناسه فایل در سیستم یافت نشد. لطفاً ابتدا فایل خود را آپلود کنید.');
             setShowErrorDialog(true);
+            setTimeout(() => router.push('/dashboard/files/upload'), 2000);
         }
     }, []);
 
