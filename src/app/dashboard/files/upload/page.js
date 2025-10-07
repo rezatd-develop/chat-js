@@ -33,7 +33,7 @@ export default function FileUploadPage() {
             setIsUploading(true);
 
             const token = localStorage.getItem("token");
-            const response = await fetch("http://localhost:3001/api/files/upload", {
+            const response = await fetch("http://167.88.165.4:4000/api/files/upload", {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${token}`,
