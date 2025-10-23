@@ -1,21 +1,56 @@
 import axiosInstance from "./axios";
 
-export const apiGet = async (url, config = {}) => {
-  const res = await axiosInstance.get(url, config);
-  return res.data;
+// Safely handle config and file downloads
+export const apiGet = async (url, config, isFile = false) => {
+  try {
+    // ensure config is always an object
+    const safeConfig = typeof config === "object" && config !== null ? config : {};
+
+    const res = await axiosInstance.get(url, {
+      ...safeConfig,
+      responseType: isFile ? "blob" : safeConfig.responseType || "json",
+    });
+
+    return isFile ? res : res.data;
+  } catch (err) {
+    console.error("apiGet error:", err);
+    throw err;
+  }
 };
 
-export const apiPost = async (url, data = {}, config = {}) => {
-  const res = await axiosInstance.post(url, data, config);
-  return res.data;
+export const apiPost = async (url, data, config) => {
+  try {
+    const safeData = typeof data === "object" && data !== null ? data : {};
+    const safeConfig = typeof config === "object" && config !== null ? config : {};
+
+    const res = await axiosInstance.post(url, safeData, safeConfig);
+    return res.data;
+  } catch (err) {
+    console.error("apiPost error:", err);
+    throw err;
+  }
 };
 
-export const apiPut = async (url, data = {}, config = {}) => {
-  const res = await axiosInstance.put(url, data, config);
-  return res.data;
+export const apiPut = async (url, data, config) => {
+  try {
+    const safeData = typeof data === "object" && data !== null ? data : {};
+    const safeConfig = typeof config === "object" && config !== null ? config : {};
+
+    const res = await axiosInstance.put(url, safeData, safeConfig);
+    return res.data;
+  } catch (err) {
+    console.error("apiPut error:", err);
+    throw err;
+  }
 };
 
-export const apiDelete = async (url, config = {}) => {
-  const res = await axiosInstance.delete(url, config);
-  return res.data;
+export const apiDelete = async (url, config) => {
+  try {
+    const safeConfig = typeof config === "object" && config !== null ? config : {};
+    const res = await axiosInstance.delete(url, safeConfig);
+    return res.data;
+  } catch (err) {
+    console.error("apiDelete error:", err);
+    throw err;
+  }
 };

@@ -6,4 +6,7 @@ export const apiRoutes = {
     signIn: '/auth/signin',
     signUp: '/auth/signup',
     filesUpload: '/files/upload',
+    getSellerSales: '/dashboard/overview/sellerSales/',
+    getPdfReports: '/files'
+
 }

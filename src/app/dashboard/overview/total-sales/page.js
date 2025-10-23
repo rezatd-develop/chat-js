@@ -7,6 +7,7 @@ import AdminLayout from "@/app/layout/admin/AdminLayout";
 import { DaOverviewTotalSalesServiceApi } from "@/app/services/apis/dashboard/dashboardServices";
 import DashboardHeader from "@/app/view/dashboard/bases/DashboardHeader";
 import { useRouter } from "next/navigation";
+import DashboardSellerSales from "@/app/view/dashboard/bases/DashboardSellerSales";
 
 const DaOverviewTotalSales = () => {
     const [daOverviewTotalSales, setDaOverviewTotalSales] = useState(null);
@@ -67,6 +68,8 @@ const DaOverviewTotalSales = () => {
     return (
         <AdminLayout>
             <div className="p-3 w-100">
+                <DashboardSellerSales />
+
                 <DashboardHeader datesChanged={datesChanged} />
 
                 {daOverviewTotalSales ? (

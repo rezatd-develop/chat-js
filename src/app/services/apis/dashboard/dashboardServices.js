@@ -16,3 +16,7 @@ export const DaOverviewDiscountsServiceApi = (id, params = {}) => {
 export const DaProductsStaticsServicesServiceApi = (id, params = {}) => {
     return apiGet(`${apiRoutes.DaProductsStaticsServices}${id}/charts`, { params });
 };
+
+export const DaOverviewGetSellerSales = (id, params = {} ) => {
+    return apiGet(`${apiRoutes.getSellerSales}${id}`, { params });
+};

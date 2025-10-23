@@ -1,4 +1,5 @@
-'use client'
+'use client';
+
 import clsx from "clsx";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -6,76 +7,88 @@ import { useState } from "react";
 
 const AdminLayoutMobile = (props) => {
     const [isOpen, setIsOpen] = useState(false);
-
-  const router = useRouter();
+    const router = useRouter();
 
     const exitUserClicked = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('userFullName');
-        router.push('/login')
+        router.push('/login');
     };
 
     return (
-        <div dir="rtl" className="w-100 vh-100 bg-light">
-            <div className="d-md-none d-flex justify-content-between align-items-center bg-dark text-white p-2">
+        <div dir="rtl" className="w-100 vh-100 bg-light position-relative">
+            {/* Top bar */}
+            <div className="d-md-none d-flex justify-content-between align-items-center bg-dark text-white p-3">
                 <button
                     className="btn btn-outline-light"
                     onClick={() => setIsOpen(!isOpen)}
                 >
                     <i className="bi bi-list fs-2"></i>
                 </button>
-                <span className="fw-bold">Management Center</span>
+                <span className="fw-bold fs-5">مرکز مدیریت</span>
             </div>
 
-
-            <div className={clsx(
-                "bg-dark text-white p-3 d-flex flex-column h-100",
-                "position-fixed top-0",
-                "transition-all",
-                isOpen ? "end-0" : "end-100",
-                "d-md-block",
-            )}
-                style={{ width: "280px", zIndex: 1050 }}
+            {/* Sidebar */}
+            <div
+                className={clsx(
+                    "position-fixed top-0 bottom-0 text-white p-3 bg-dark shadow-lg",
+                    "transition-all",
+                    isOpen ? "end-0" : "end-100",
+                )}
+                style={{
+                    width: "280px",
+                    zIndex: 1050,
+                    background: "linear-gradient(180deg, #212529 0%, #343a40 100%)",
+                }}
             >
-                <a href="/" className="text-white text-decoration-none d-none d-md-block mb-3">
-                    <span className="fs-4 fw-bold">Management Center</span>
-                </a>
-                <hr className="d-none d-md-block" />
+                <div className="d-flex justify-content-between align-items-center mb-4">
+                    <span className="fw-bold fs-5">منو</span>
+                    <button
+                        className="btn btn-outline-light btn-sm"
+                        onClick={() => setIsOpen(false)}
+                    >
+                        <i className="bi bi-x-lg"></i>
+                    </button>
+                </div>
 
                 <ul className="nav nav-pills flex-column mb-auto">
-                    <button
-                        className="btn btn-outline-light"
-                        style={{ width: 'fit-content' }}
-                        onClick={() => setIsOpen(!isOpen)}
-                    >
-                        <i className="bi bi-arrow-right"></i>
-                    </button>
-                    {props?.menuItems?.map(item =>
+                    {props?.menuItems?.map((item) => (
                         <div key={item?.id}>
                             <li className="nav-item">
-                                <Link href={item?.href}
-                                    className="nav-link text-white" aria-current="page">
+                                <Link href={item?.href} className="nav-link text-white fw-semibold">
+                                    <i className="bi bi-folder-fill me-2"></i>
                                     {item?.name}
                                 </Link>
                             </li>
-                            {item?.children?.map(child =>
-                                <li key={child?.id}>
-                                    <Link href={child?.href}
-                                        className={clsx(props?.selectedMenuItem === child?.id && 'active', "nav-link text-white me-3")}>
+                            {item?.children?.map((child) => (
+                                <li key={child?.id} className="ms-3">
+                                    <Link
+                                        href={child?.href}
+                                        className={clsx(
+                                            "nav-link text-white-50",
+                                            props?.selectedMenuItem === child?.id && "active bg-primary text-white"
+                                        )}
+                                    >
+                                        <i className="bi bi-chevron-left me-2"></i>
                                         {child?.name}
                                     </Link>
                                 </li>
-                            )}
+                            ))}
                         </div>
-                    )}
+                    ))}
                 </ul>
 
-                <hr />
-                <i class="bi bi-box-arrow-right fs-3 text-white me-3 cursor-pointer"
-                    onClick={exitUserClicked}
-                ></i>
+                <div className="mt-auto border-top border-secondary pt-3">
+                    <button
+                        className="btn btn-outline-light w-100 rounded-pill"
+                        onClick={exitUserClicked}
+                    >
+                        <i className="bi bi-box-arrow-right me-2"></i> خروج
+                    </button>
+                </div>
             </div>
-            <div className="w-100">{props?.children}</div>
+
+            <div className="w-100 h-100">{props?.children}</div>
         </div>
     );
 };

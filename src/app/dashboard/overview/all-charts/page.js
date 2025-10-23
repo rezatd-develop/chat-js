@@ -16,6 +16,7 @@ import {
 } from "@/app/services/apis/dashboard/dashboardServices";
 import ChartCard from "@/app/components/cards/ChartCard";
 import { useRouter } from "next/navigation";
+import DashboardSellerSales from "@/app/view/dashboard/bases/DashboardSellerSales";
 
 const DaOverviewAllCharts = () => {
     const [fileId, setFileId] = useState(null);
@@ -102,8 +103,8 @@ const DaOverviewAllCharts = () => {
     return (
         <AdminLayout>
             <div className="p-3 w-100">
+                <DashboardSellerSales />
                 <DashboardHeader datesChanged={datesChanged} />
-
                 {isLoading ? (
                     <div className="d-flex justify-content-center align-items-center p-5">
                         <Spinner animation="border" variant="primary" />
