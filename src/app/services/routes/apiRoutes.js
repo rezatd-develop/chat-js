@@ -7,6 +7,7 @@ export const apiRoutes = {
     signUp: '/auth/signup',
     filesUpload: '/files/upload',
     getSellerSales: '/dashboard/overview/sellerSales/',
-    getPdfReports: '/files'
+    getPdfReports: '/files',
+    getAllTotals: '/statistics/totals'
 
 }

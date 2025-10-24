@@ -5,6 +5,16 @@ import CuDialog from "@/app/components/dialog/CuDialog";
 import { DaOverviewGetSellerSales } from "@/app/services/apis/dashboard/dashboardServices";
 import { useRouter } from "next/navigation";
 
+const modernPalette = [
+    ["#3a86ff", "#8338ec"],  // Ocean Blue → Purple
+    ["#ff6b6b", "#ff9f1c"],  // Sunset Red → Orange
+    ["#2ec4b6", "#0a9396"],  // Mint → Teal
+    ["#9d4edd", "#6a4c93"],  // Violet → Dark Violet
+    ["#f72585", "#b5179e"],  // Pink → Purple
+    ["#7209b7", "#560bad"],  // Deep Purple → Indigo
+    ["#4cc9f0", "#4361ee"],  // Light Blue → Blue
+];
+
 const DashboardSellerSales = () => {
     const [sellerSales, setSellerSales] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
@@ -61,45 +71,29 @@ const DashboardSellerSales = () => {
         fetchSellerSales(start, end);
     };
 
-    const colorClasses = [
-        "bg-gradient-primary",
-        "bg-gradient-success",
-        "bg-gradient-info",
-        "bg-gradient-warning",
-        "bg-gradient-danger",
-        "bg-gradient-purple",
-        "bg-gradient-teal",
-    ];
-
     return (
         <div className="mt-4 mb-5">
-
             {sellerSales?.length > 0 ? (
                 <div className="row g-4">
-                    {sellerSales.map((seller, index) => (
-                        <div key={index} className="col-12 col-sm-6 col-md-4 col-lg-3">
-                            <div
-                                className={`card text-white rounded-4 shadow-sm border-0 ${colorClasses[index % colorClasses.length]} 
-                                h-100 d-flex justify-content-center align-items-center p-3`}
-                                style={{
-                                    background: `linear-gradient(135deg, var(--bs-${[
-                                        "primary",
-                                        "success",
-                                        "info",
-                                        "warning",
-                                        "danger",
-                                        "purple",
-                                        "teal",
-                                    ][index % 7]}), #6c757d)`,
-                                }}
-                            >
-                                <div className="card-body text-center">
-                                    <h6 className="fw-semibold mb-2">{seller.name}</h6>
-                                    <h5 className="fw-bold">{seller.amount.toLocaleString()} تومان</h5>
+                    {sellerSales.map((seller, index) => {
+                        const gradient = modernPalette[index % modernPalette.length];
+                        return (
+                            <div key={index} className="col-12 col-sm-6 col-md-4 col-lg-3">
+                                <div
+                                    className="card text-white rounded-4 shadow-lg border-0 h-100 d-flex justify-content-center align-items-center p-3"
+                                    style={{
+                                        background: `linear-gradient(135deg, ${gradient[0]}, ${gradient[1]})`,
+                                        transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                                    }}
+                                >
+                                    <div className="card-body text-center">
+                                        <h6 className="fw-semibold mb-2">{seller.name}</h6>
+                                        <h5 className="fw-bold">{seller.amount.toLocaleString()} تومان</h5>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
             ) : (
                 <p className="text-muted text-center mt-5">

@@ -7,6 +7,7 @@ import DoughnutChart from "@/app/components/charts/DoughnutChart";
 import CuDialog from "@/app/components/dialog/CuDialog";
 import AdminLayout from "@/app/layout/admin/AdminLayout";
 import DashboardHeader from "@/app/view/dashboard/bases/DashboardHeader";
+import TotalOverview from '../../../components/cards/TotalOverview'
 
 import {
     DaOverviewTotalSalesServiceApi,
@@ -103,6 +104,7 @@ const DaOverviewAllCharts = () => {
     return (
         <AdminLayout>
             <div className="p-3 w-100">
+                <TotalOverview />
                 <DashboardSellerSales />
                 <DashboardHeader datesChanged={datesChanged} />
                 {isLoading ? (
