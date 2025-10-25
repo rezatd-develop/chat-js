@@ -105,93 +105,93 @@ const DaOverviewAllCharts = () => {
         if (storedFileId) fetchAllCharts(storedFileId, startDate, endDate);
     };
 
-   return (
-    <AdminLayout>
-        <div className="p-3 w-100">
-            {/* Only render dashboard content if fileId, startDate, and endDate are available */}
-            {fileId && startDate && endDate ? (
-                <>
-                    <TotalOverview />
-                    <DashboardSellerSales />
-                    <DashboardHeader datesChanged={datesChanged} />
+    return (
+        <AdminLayout>
+            <div className="p-3 w-100">
+                {/* Only render dashboard content if fileId, startDate, and endDate are available */}
+                {fileId ? (
+                    <>
+                        <TotalOverview />
+                        <DashboardSellerSales />
+                        <DashboardHeader datesChanged={datesChanged} />
 
-                    {isLoading ? (
-                        <div className="d-flex justify-content-center align-items-center p-5">
-                            <Spinner animation="border" variant="primary" />
-                        </div>
-                    ) : (
-                        <Row className="g-4 mt-3">
-                            <Col xs={12} lg={6}>
-                                {totalSales ? (
-                                    <ChartCard title="مجموع فروش">
-                                        <LineChart
-                                            labels={totalSales?.labels}
-                                            datasets={totalSales?.datasets}
-                                        />
-                                    </ChartCard>
-                                ) : (
-                                    <p className="text-muted text-center">در حال بارگذاری...</p>
-                                )}
-                            </Col>
+                        {isLoading ? (
+                            <div className="d-flex justify-content-center align-items-center p-5">
+                                <Spinner animation="border" variant="primary" />
+                            </div>
+                        ) : (
+                            <Row className="g-4 mt-3">
+                                <Col xs={12} lg={6}>
+                                    {totalSales ? (
+                                        <ChartCard title="مجموع فروش">
+                                            <LineChart
+                                                labels={totalSales?.labels}
+                                                datasets={totalSales?.datasets}
+                                            />
+                                        </ChartCard>
+                                    ) : (
+                                        <p className="text-muted text-center">در حال بارگذاری...</p>
+                                    )}
+                                </Col>
 
-                            <Col xs={12} lg={6}>
-                                {discounts ? (
-                                    <ChartCard title="تخفیف ها">
-                                        <LineChart
-                                            labels={discounts?.labels}
-                                            datasets={discounts?.datasets}
-                                        />
-                                    </ChartCard>
-                                ) : (
-                                    <p className="text-muted text-center">در حال بارگذاری...</p>
-                                )}
-                            </Col>
+                                <Col xs={12} lg={6}>
+                                    {discounts ? (
+                                        <ChartCard title="تخفیف ها">
+                                            <LineChart
+                                                labels={discounts?.labels}
+                                                datasets={discounts?.datasets}
+                                            />
+                                        </ChartCard>
+                                    ) : (
+                                        <p className="text-muted text-center">در حال بارگذاری...</p>
+                                    )}
+                                </Col>
 
-                            <Col xs={12} lg={6}>
-                                {bookingCount ? (
-                                    <ChartCard title="تعداد رزرو ها">
-                                        <DoughnutChart
-                                            labels={bookingCount?.labels}
-                                            datasets={bookingCount?.datasets}
-                                        />
-                                    </ChartCard>
-                                ) : (
-                                    <p className="text-muted text-center">در حال بارگذاری...</p>
-                                )}
-                            </Col>
+                                <Col xs={12} lg={6}>
+                                    {bookingCount ? (
+                                        <ChartCard title="تعداد رزرو ها">
+                                            <DoughnutChart
+                                                labels={bookingCount?.labels}
+                                                datasets={bookingCount?.datasets}
+                                            />
+                                        </ChartCard>
+                                    ) : (
+                                        <p className="text-muted text-center">در حال بارگذاری...</p>
+                                    )}
+                                </Col>
 
-                            <Col xs={12} lg={6}>
-                                {productStatics ? (
-                                    <ChartCard title="آمار محصولات / خدمات">
-                                        <DoughnutChart
-                                            labels={productStatics?.labels}
-                                            datasets={productStatics?.datasets}
-                                        />
-                                    </ChartCard>
-                                ) : (
-                                    <p className="text-muted text-center">در حال بارگذاری...</p>
-                                )}
-                            </Col>
-                        </Row>
-                    )}
-                </>
-            ) : (
-                // Show a spinner or nothing if required fields aren't ready
-                <div className="d-flex justify-content-center align-items-center p-5">
-                    <Spinner animation="border" variant="primary" />
-                </div>
-            )}
+                                <Col xs={12} lg={6}>
+                                    {productStatics ? (
+                                        <ChartCard title="آمار محصولات / خدمات">
+                                            <DoughnutChart
+                                                labels={productStatics?.labels}
+                                                datasets={productStatics?.datasets}
+                                            />
+                                        </ChartCard>
+                                    ) : (
+                                        <p className="text-muted text-center">در حال بارگذاری...</p>
+                                    )}
+                                </Col>
+                            </Row>
+                        )}
+                    </>
+                ) : (
+                    // Show a spinner or nothing if required fields aren't ready
+                    <div className="d-flex justify-content-center align-items-center p-5">
+                        <Spinner animation="border" variant="primary" />
+                    </div>
+                )}
 
-            {/* Error dialog (still shows even if fileId/startDate missing) */}
-            <CuDialog
-                isOpen={showErrorDialog}
-                dialogHeader="خطا"
-                dialogContent={errorMessage}
-                handleClose={() => setShowErrorDialog(false)}
-            />
-        </div>
-    </AdminLayout>
-);
+                {/* Error dialog (still shows even if fileId/startDate missing) */}
+                <CuDialog
+                    isOpen={showErrorDialog}
+                    dialogHeader="خطا"
+                    dialogContent={errorMessage}
+                    handleClose={() => setShowErrorDialog(false)}
+                />
+            </div>
+        </AdminLayout>
+    );
 
 };
 
