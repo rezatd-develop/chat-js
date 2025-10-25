@@ -84,15 +84,19 @@ const DaOverviewAllCharts = () => {
 
     useEffect(() => {
         const storedFileId = localStorage.getItem('fileId');
-        if (storedFileId) {
-            setFileId(storedFileId);
-            fetchAllCharts(storedFileId, startDate, endDate);
-        } else {
+
+        if (!storedFileId) {
             setErrorMessage('شناسه فایل در سیستم یافت نشد. لطفاً ابتدا فایل خود را آپلود کنید.');
             setShowErrorDialog(true);
+
             setTimeout(() => router.push('/dashboard/files/upload'), 2000);
+            return;
         }
+
+        setFileId(storedFileId);
+        fetchAllCharts(storedFileId, startDate, endDate);
     }, []);
+
 
     const datesChanged = (startDate, endDate) => {
         setStartDate(startDate);
