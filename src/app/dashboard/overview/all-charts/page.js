@@ -82,34 +82,34 @@ const DaOverviewAllCharts = () => {
         }
     }
 
-useEffect(() => {
-    // Step 1: Check for user token first
-    const userToken = localStorage.getItem('token'); // adjust key if needed
+    useEffect(() => {
+        // Step 1: Check for user token first
+        const userToken = localStorage.getItem('token'); // adjust key if needed
 
-    if (!userToken) {
-        setErrorMessage('توکن کاربر یافت نشد. لطفاً ابتدا وارد حساب کاربری خود شوید.');
-        setShowErrorDialog(true);
+        if (!userToken) {
+            setErrorMessage('توکن کاربر یافت نشد. لطفاً ابتدا وارد حساب کاربری خود شوید.');
+            setShowErrorDialog(true);
 
-        // redirect to login page
-        setTimeout(() => router.push('/auth/login'), 1500);
-        return; // 🚫 stop here — don't check fileId or call APIs
-    }
+            // redirect to login page
+            setTimeout(() => router.push('/login'), 1500);
+            return; // 🚫 stop here — don't check fileId or call APIs
+        }
 
-    // Step 2: Then check for fileId
-    const storedFileId = localStorage.getItem('fileId');
-    if (!storedFileId) {
-        setErrorMessage('شناسه فایل یافت نشد. لطفاً ابتدا فایل خود را آپلود کنید.');
-        setShowErrorDialog(true);
+        // Step 2: Then check for fileId
+        const storedFileId = localStorage.getItem('fileId');
+        if (!storedFileId) {
+            setErrorMessage('شناسه فایل یافت نشد. لطفاً ابتدا فایل خود را آپلود کنید.');
+            setShowErrorDialog(true);
 
-        // redirect to file upload page
-        setTimeout(() => router.push('/dashboard/files/upload'), 1500);
-        return; // 🚫 stop here too
-    }
+            // redirect to file upload page
+            setTimeout(() => router.push('/dashboard/files/upload'), 1500);
+            return; // 🚫 stop here too
+        }
 
-    // Step 3: If both exist, proceed normally
-    setFileId(storedFileId);
-    fetchAllCharts(storedFileId, startDate, endDate);
-}, []);
+        // Step 3: If both exist, proceed normally
+        setFileId(storedFileId);
+        fetchAllCharts(storedFileId, startDate, endDate);
+    }, []);
 
 
 
